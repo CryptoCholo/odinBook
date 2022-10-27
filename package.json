@@ -1,5 +1,7 @@
 {
-  "engines": { "node": "16.13.2"},
+  "engines": {
+    "node": "16.13.2"
+  },
   "name": "hng-task1",
   "version": "1.0.0",
   "description": "A simple webpage that aggregrates a users social media accounts and profiles in one location",
@@ -20,6 +22,7 @@
   "homepage": "https://github.com/cryptojunkie16/hng-task1#readme",
   "dependencies": {
     "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "helmet": "^6.0.0"
