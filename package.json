@@ -1,4 +1,5 @@
 {
+  "engines": { "node": "16.13.2"},
   "name": "hng-task1",
   "version": "1.0.0",
   "description": "A simple webpage that aggregrates a users social media accounts and profiles in one location",
