@@ -2,7 +2,6 @@ const postServices = require('../services/post.service');
 const User = require('../models/user');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-const  Types = require('mongoose');
 const isOwner = require('../utils/isOwner').isOwner;
 
 
@@ -85,19 +84,20 @@ const toggleLike = async (req, res) => {
 const updatePost = async  (req, res) => {
     try {
         const { postId } = req.params;
-        const { body} = req.body;
+        const { content } = req.body;
 
-        if (!body) return res.status(400).json({message: "please provide a post content"})
+        if (!content) return res.status(400).json({message: "please provide a post content"})
 
         const post = await postServices.getPostByPostId(postId)
 
         if (!post ) return res.status(404).json({message: "post does not exist"});
-
-        let allowed = isOwner(req.user._id, post.author._id);
+        let { _id } = post.author;
+         
+        let allowed = isOwner(req.user._id, _id);
         if (!allowed) {
             return res.status(400).json({message: "unauthorized"})
         }
-        post.body = body;
+        post.content = content;
         await post.save();
         
         return res.status(200).json({message: "Post updated succesfully", post})

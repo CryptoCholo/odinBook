@@ -1,7 +1,9 @@
 exports.isOwner = (reqId, resId) => {
-    const allowed = Number(reqId) == Number(resId);
+       let stringId = resId.toString();
 
-    console.log(reqId, resId)
+    const allowed = reqId === stringId;
+
+    console.log( reqId,  stringId, allowed)
 
     return allowed;
 }

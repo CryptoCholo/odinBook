@@ -6,10 +6,10 @@ const postSchema = Joi.object({
 
 async function postValidator(req, res, next) {
 
-    const userPayload = req.body;
+    const postPayload = req.body;
 
     try {
-        await postSchema.validateAsync(userPayload);
+        await postSchema.validateAsync(postPayload);
         next();
     } catch (err) {
         next(err.details[0].message)

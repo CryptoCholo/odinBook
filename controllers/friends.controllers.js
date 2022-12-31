@@ -2,6 +2,38 @@ const { getUserById } = require('../services/user.service');
 const { StatusCodes } = require('http-status-codes');
 
 
+const friendsList = async (req, res) => {
+    try {
+        if(!req.user) return res.status(400).json({message: 'You need to login to continue'});
+    
+        const { _id } = req.user;
+        const user = await getUserById(_id);
+    
+        if (!user) return  res.status(404).json({message: 'User does not exist'});
+    
+        return res.status(200).json({message: "success", friends: user.friends})
+    
+    } catch (err) {
+        return res.status(400).json({error: err.message})
+    }
+ }
+
+
+const getReceivedRequests = async (req, res) => {
+   try {
+    if(!req.user) return res.status(400).json({message: 'You need to login to continue'});
+
+    const { _id } = req.user;
+    const user = await getUserById(_id);
+
+    if (!user) return  res.status(404).json({message: 'User does not exist'});
+
+    return res.status(200).json({message: "success", requests: user.received_friend_req})
+
+   } catch (err) {
+       return res.status(400).json({error: err.message})
+   }
+}
 
 const sendFriendRequest = async (req, res) => {
     //Get user id from auth middleware
@@ -147,5 +179,5 @@ const unfriendUser = async (req, res) => {
     }
 }
 
-module.exports = {sendFriendRequest, acceptFriendRequest, declineFriendRequest, unfriendUser}
+module.exports = {friendsList, sendFriendRequest, getReceivedRequests, acceptFriendRequest, declineFriendRequest, unfriendUser}
 
